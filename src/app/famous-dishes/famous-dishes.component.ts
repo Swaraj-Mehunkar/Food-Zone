@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from '../api.service';
 import { IProduct } from '../iproduct';
 
@@ -11,11 +12,11 @@ export class FamousDishesComponent implements OnInit {
 
   result:IProduct[]=[];
 
-  constructor(private api:ApiService) { }
+  constructor(private api:ApiService, private router:Router) { }
 
   ngOnInit(): void {
 
-    this.api.getData().subscribe((data) =>{
+    this.api.getData().subscribe((data:IProduct[]) =>{
      console.log("in function", data);
 
      for(var i=0;i<data.length;i++){
@@ -29,10 +30,9 @@ export class FamousDishesComponent implements OnInit {
          image_url:data[i].image_url
        };
        this.result.push(item);
-       console.log("final array",this.result);
+       console.log(this.result);
      }
     });
-    
+  
   }
-
 }

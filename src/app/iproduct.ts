@@ -8,5 +8,4 @@ export interface IProduct {
     cook_time:string;
     image_url:string;
 
-
 }

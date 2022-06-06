@@ -9,6 +9,10 @@ import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
 import { FooterComponent } from './footer/footer.component';
 import { FamousDishesComponent } from './famous-dishes/famous-dishes.component';
+import { VegComponent } from './veg/veg.component';
+import { NonvegComponent } from './nonveg/nonveg.component';
+import { SouthIndianComponent } from './south-indian/south-indian.component';
+import { CartComponent } from './cart/cart.component';
 
 
 @NgModule({
@@ -19,7 +23,11 @@ import { FamousDishesComponent } from './famous-dishes/famous-dishes.component';
     AboutComponent,
     ContactComponent,
     FooterComponent,
-    FamousDishesComponent
+    FamousDishesComponent,
+    VegComponent,
+    NonvegComponent,
+    SouthIndianComponent,
+    CartComponent
   ],
   imports: [
     BrowserModule,
