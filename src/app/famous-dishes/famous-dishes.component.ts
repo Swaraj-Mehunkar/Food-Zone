@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ApiService } from '../api.service';
+import { ApiService } from '../services/api.service';
 import { IProduct } from '../iproduct';
+import { CartService } from '../services/cart.service';
 
 @Component({
   selector: 'app-famous-dishes',
@@ -10,29 +10,47 @@ import { IProduct } from '../iproduct';
 })
 export class FamousDishesComponent implements OnInit {
 
-  result:IProduct[]=[];
+  result: IProduct[] = [];
+  searchKey:string="";
+  public filterCategory : any;
 
-  constructor(private api:ApiService, private router:Router) { }
+  constructor(private api:ApiService, private cartService:CartService) { }
 
   ngOnInit(): void {
 
-    this.api.getData().subscribe((data:IProduct[]) =>{
-     console.log("in function", data);
+    this.api.getData().subscribe((data: IProduct[]) => {
+      console.log(data);
+      this.result = data;
+      // for cart use------------------------
 
-     for(var i=0;i<data.length;i++){
-       let item:IProduct={
-         food_id:data[i].food_id,
-         food_name:data[i].food_name,
-         price:data[i].price,
-         rating:data[i].rating,
-         category:data[i].category,
-         cook_time:data[i].cook_time,
-         image_url:data[i].image_url
-       };
-       this.result.push(item);
-       console.log(this.result);
-     }
+      this.result.forEach((a: any) => {
+        this.filterCategory = data;
+        if(a.category === "Veg" || a.category === "Non-Veg"){
+          a.category ="famousdishes"
+        }
+        Object.assign(a, { quantity: 1, total: a.Price })
+      });
+      console.log(this.result);
     });
-  
+
+    this.cartService.search.subscribe((val:any)=>{
+      this.searchKey = val;
+    })
+    
   }
-}
+    addtocart(dt:any){
+      this.cartService.addtocart(dt);
+      alert("You Have Successfully Order");
+    }
+    
+    filter(category:string){
+      this.filterCategory = this.result
+      .filter((a:any)=>{
+        if(a.category == category || category==''){
+          return a;
+        }
+      })
+    }
+
+  }
+     

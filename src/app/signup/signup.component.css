@@ -3,6 +3,7 @@ body{font-family: 'Raleway', sans-serif ;}
 .tab-style{
 font-size:18px;
 width:50%;
+height: 30px;
 background-image: url("src/assets/images/wood_1.png");
 text-align:center;
 }
@@ -28,7 +29,8 @@ margin-bottom:20px;
 font-size:18px;
 }
 
-.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {   background-color:#e5ecf4;
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {  
+ background-color:#e5ecf4;
 color:#4a89dc;}
 
 .modal-header{background-color:#e5ecf4;}

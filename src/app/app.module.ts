@@ -9,11 +9,15 @@ import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
 import { FooterComponent } from './footer/footer.component';
 import { FamousDishesComponent } from './famous-dishes/famous-dishes.component';
+import { CartComponent } from './cart/cart.component';
+import { CartitemComponent } from './cartitem/cartitem.component';
+import { CheckoutComponent } from './checkout/checkout.component';
+import { FilterPipe } from './filter.pipe';
+import { GalleryComponent } from './gallery/gallery.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { VegComponent } from './veg/veg.component';
 import { NonvegComponent } from './nonveg/nonveg.component';
-import { SouthIndianComponent } from './south-indian/south-indian.component';
-import { CartComponent } from './cart/cart.component';
-
+import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 
 @NgModule({
   declarations: [
@@ -24,15 +28,21 @@ import { CartComponent } from './cart/cart.component';
     ContactComponent,
     FooterComponent,
     FamousDishesComponent,
+    CartComponent,
+    CartitemComponent,
+    CheckoutComponent,
+    FilterPipe,
+    GalleryComponent,
     VegComponent,
     NonvegComponent,
-    SouthIndianComponent,
-    CartComponent
-  ],
+    AdminPanelComponent,
+    ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

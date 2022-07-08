@@ -94,10 +94,9 @@ li i {
 }
 
 .footer-bottom {
-	padding: 10px;
-	background: #00121b;
-	color: #fff;
-	font-size: 12px;
 	text-align: center;
+	padding-top: 50px;
+	color: white;
+	
 }
 

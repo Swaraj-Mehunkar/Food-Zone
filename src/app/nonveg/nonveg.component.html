@@ -1,60 +1,15 @@
-<html>
-<body>
-  <p class="heading">NON-VEG MENU</p>
-  <div class="gallery-image">
-    <div class="img-box">
-      <img src="../../assets/images/chicken.png" alt="" />
-      <div class="transparent-box">
-        <div class="caption">
-          <p>Chicken</p>
-        </div>
-      </div> 
-    </div>
-    <div class="img-box">
-      <img src="../../assets/images/p5.jpg" alt="" />
-      <div class="transparent-box">
-        <div class="caption">
-          <p>Chicken Tikka</p>
-          
-        </div>
-      </div>
-    </div>
-    <div class="img-box">
-      <img src="../../assets/images/butterchicken.jpg" alt="" />
-      <div class="transparent-box">
-        <div class="caption">
-          <p>Butter Chicken</p>
-          
-        </div>
-      </div>
-    </div>
-    <div class="img-box">
-      <img src="../../assets/images/chicken1.png" alt="" />
-      <div class="transparent-box">
-        <div class="caption">
-          <p>Chicken special</p>
-         
-        </div>
-      </div> 
-    </div>
-    <div class="img-box">
-      <img src="../../assets/images/muttoncurry.jpg" alt="" />
-      <div class="transparent-box">
-        <div class="caption">
-          <p>Mutton Curry</p>
-          <!-- <p class="opacity-low">Cityscape</p> -->
-        </div>
-      </div> 
-    </div>
-    <div class="img-box">
-      <img src="../../assets/images/pahadimutton.jpg" alt="" />
-      <div class="transparent-box">
-        <div class="caption">
-          <p>Pahadi Mutton</p>
+<div class="container" mt-4 mb-4>
+    <h1 class="text-center">NonVeg<span class="highlight">Dishes</span></h1>
+    <div class="row">
+      <ng-container *ngFor="let dt of result | filter:searchKey:'food_name'">
+        <div class="card col-md-3"> 
+             <img src="{{dt.image_url}}" style="height:150px; width: 180px; margin-top: 10px; margin-left: 40px;">
+            <p style="text-align: center;"><strong>{{dt.food_name}}</strong></p>
+            <p style="text-align: center;"><b>{{dt.price | currency:'INR'}}</b></p>
+            <button style="margin-bottom: 20px;" class="btn btn-warning"(click)=addtocart(dt) >Order Now</button>
+            </div>
+      </ng-container>
     
-        </div>
-      </div> 
     </div>
-  </div>
-</body>
-</html>
+    </div>
+    

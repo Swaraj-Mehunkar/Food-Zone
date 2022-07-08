@@ -1,11 +1,8 @@
 export interface IProduct {
 
-    food_id:number;
-    food_name:String;
-    price:number;
-    rating:number;
-    category:string;
-    cook_time:string;
+    food_id?:number;
+    food_name:string;
+    price:string;
     image_url:string;
 
 }

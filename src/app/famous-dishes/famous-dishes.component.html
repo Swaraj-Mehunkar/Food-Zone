@@ -1,66 +1,14 @@
-<!-- <!DOCTYPE html>
-<html>
-<body>
 <div class="container" mt-4 mb-4>
-<h1 class="text-center">Famous<span class="">Dishes</span></h1>
+<h1 class="text-center">Famous<span class="highlight">Dishes</span></h1>
 <div class="row">
-  <div class="col-lg-3 mt-3" *ngFor="let item of result">
+  <ng-container *ngFor="let dt of result | filter:searchKey:'food_name'">
     <div class="card col-md-3"> 
-         <img src="{{item.image_url}}">
-         <h1>{{item.food_name}}</h1>
-         <p>{{item.price}}</p>
-          <button class="btn btn-warning">Add to cart</button>
+         <img src="{{dt.image_url}}" style="height:150px; width: 180px; margin-top: 10px; margin-left: 40px;">
+        <p style="text-align: center;"><strong>{{dt.food_name}}</strong></p>
+        <p style="text-align: center;"><b>{{dt.price | currency:'INR'}}</b></p>
+        <button style="margin-bottom: 20px;" class="btn btn-warning"(click)=addtocart(dt) >Order Now</button>
         </div>
-      </div>
+  </ng-container>
 
 </div>
 </div>
-</body>
-</html> -->
-
-<div class="container mt-2">
-    <div class="row">
-      <div class="col-md-3 col-sm-6 item">
-        <div class="card item-card card-block">
-        
-      <img src="../../assets/images/cpiece.png">
-      <h5 class="card-title  mt-3 mb-3"  style="text-align: center;">Chicken</h5>
-          <p class="card-text" style="text-align: center; font-weight: bold; padding-top: 30px;">Rs.50</p> 
-          <p class="time">Time to cook about 20-30 minutes</p>
-          <button class="btn btn-warning" routerLink="cart" id="cart" type="button">Add To Cart</button>
-    </div>
-      </div>
-      <div class="col-md-3 col-sm-6 item">
-        <div class="card item-card card-block">
-        
-      <img src="../../assets/images/noodles.png">
-          <h5 class="card-title  mt-3 mb-3"  style="text-align: center;">Noodles</h5>
-          <p class="card-text"  style="text-align: center; font-weight: bold; padding-top: 30px;">Rs.60</p> 
-          <p class="time">Time to cook about 10-25 minutes</p>
-          <button class="btn btn-warning" routerLink="cart" id="cart" type="button">Add To Cart</button>
-    </div>
-      </div>
-      <div class="col-md-3 col-sm-6 item">
-        <div class="card item-card card-block">
-        
-      <img src="../../assets/images/brownie.png">
-          <h5 class="card-title  mt-3 mb-3"  style="text-align: center;">Brownie</h5>
-          <p class="card-text"  style="text-align: center; font-weight: bold; padding-top: 30px;">Rs.90</p> 
-          <p class="time">Time to cook about 12-25 minutes</p>
-          <button class="btn btn-warning shop-item-button" routerLink="cart" id="cart" type="button">Add To Cart</button>
-    </div>
-      </div>
-      <div class="col-md-3 col-sm-6 item">
-        <div class="card item-card card-block">
-        
-      <img src="../../assets/images/momos.png">
-          <h5 class="card-title  mt-3 mb-3"  style="text-align: center;">Momos</h5>
-          <p class="card-text"  style="text-align: center; font-weight: bold; padding-top: 30px;">Rs.40</p> 
-          <p class="time">Time to cook about 10-20 minutes</p>
-          <button class="btn btn-warning" routerLink="cart" id="cart" type="button">Add To Cart</button>
-    </div>
-      </div>    
-    </div>
-  </div>
-
-  
