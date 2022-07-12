@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IGallery } from '../igallery';
+import { CartService } from '../services/cart.service';
 import { GalleryService } from '../services/gallery.service';
 
 @Component({
@@ -11,7 +12,10 @@ export class GalleryComponent implements OnInit {
 
   result: IGallery[] = [];
 
-  constructor(private galleryservice:GalleryService) { }
+  searchKey:string="";
+  public filterCategory : any;
+
+  constructor(private galleryservice:GalleryService, private cartservice:CartService) { }
 
   ngOnInit(): void {
 
@@ -25,6 +29,18 @@ export class GalleryComponent implements OnInit {
         Object.assign(a, { quantity: 1, total: a.Price })
       });
     });
-    
+    this.cartservice.search.subscribe((val:any)=>{
+      this.searchKey = val;
+    })
   }
+
+  filter(category:string){
+    this.filterCategory = this.result
+    .filter((a:any)=>{
+      if(a.category == category || category==''){
+        return a;
+      }
+    })
+  }
+
 }

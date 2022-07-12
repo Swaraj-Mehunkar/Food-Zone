@@ -113,7 +113,7 @@ body {
 
 
   .card-image {
-    width: 35%;
+    display: inline-block;
 
   }
 
@@ -133,7 +133,7 @@ body {
         font-weight: 500;
         color: #F2994A;
         margin-top: 5px;
-
+        padding-left: 350%;
        
     }
     .card-wheel {

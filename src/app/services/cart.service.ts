@@ -25,20 +25,29 @@ export class CartService {
 
      addtocart(famousdish : any)
      {
-       this.cartItemList.push(famousdish);
-       this.famousdishList.next(this.cartItemList);
-       //this.getTotalPrice();
-       console.log(this.cartItemList);
-     }
+      const itemIndex = this.cartItemList.findIndex(item => item.food_id === famousdish.food_id);
+      if (itemIndex === -1) {
+        //if cart is empty then add product into cart
+      this.cartItemList.push(famousdish);
+      
+      }
+  
+      else {
+        //if there an item existing then just add up the quantity and not duplicating it
+        // this.cartItemList[itemIndex]. = this.cartItemList[itemIndex].quantity + product.quantity;
+      }
+      this.famousdishList.next(this.cartItemList.slice(0));
+      this.getTotalPrice();//calling total price
+    }
+     
     
      removecartItem(famousdish:any){
-       this.cartItemList.map((a:any,index:any)=>{
-         if(famousdish.id=== a.id){
-           this.cartItemList.splice(index,1);
-         }
-
-       })
-       this.famousdishList.next(this.cartItemList);
+      for(let i=0;i<this.cartItemList.length;i++){
+        if(this.cartItemList[i].food_id === famousdish.food_id){
+        this.cartItemList.splice(i,1);
+        }
+      }
+      this.famousdishList.next(this.cartItemList);
      }
      removeAllcart(){
        this.cartItemList =[]
@@ -49,7 +58,8 @@ export class CartService {
      getTotalPrice() : number{
       let grandTotal =0;
       this.cartItemList.map((a:any)=>{
-        grandTotal += Number(a.total);
+        grandTotal += Number(a.price*a.quantity);
+        console.log(grandTotal);
       })
       return grandTotal;
     }

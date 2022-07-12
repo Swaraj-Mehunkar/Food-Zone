@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { IProduct } from '../iproduct';
 
 @Injectable({
@@ -15,6 +16,15 @@ export class AdminPanelService {
         "Access-Control-Allow-Origin":"*"
       } 
 }).subscribe(result=>console.log("Data send to Database"));
+  }
+
+  deleteFood(id:number)
+  {
+    this.http.delete("https://localhost:44343/api/famousdish/"+id,{
+      headers:{
+        "Access-Control-Allow-Origin":"*"
+      }
+    }).subscribe(result=>console.log("Food Item deleted Successfully"));
   }
 
   }

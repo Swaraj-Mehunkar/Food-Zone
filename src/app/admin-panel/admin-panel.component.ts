@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Router } from 'express';
 import { IProduct } from '../iproduct';
 import { AdminPanelService } from '../services/admin-panel.service';
 import { ApiService } from '../services/api.service';
-import { CartService } from '../services/cart.service';
 
 @Component({
   selector: 'app-admin-panel',
@@ -20,12 +20,11 @@ export class AdminPanelComponent implements OnInit {
   price:FormControl=new FormControl();
   image_url:FormControl=new FormControl();
 
-  constructor(private apiservice:ApiService,private formbuilder:FormBuilder,private adminpanel:AdminPanelService) { }
+  constructor(private route:Router, private apiservice:ApiService,private formbuilder:FormBuilder,private adminpanel:AdminPanelService) { }
 
   ngOnInit(): void {
 
     this.apiservice.getData().subscribe((data: IProduct[]) => {
-      console.log(data);
       this.famous = data;
       // for cart use------------------------
 
@@ -33,7 +32,7 @@ export class AdminPanelComponent implements OnInit {
 
         Object.assign(a, { quantity: 1, total: a.Price })
       });
-      console.log("data done done");
+      console.log("data done");
     });
   }
 
@@ -47,6 +46,27 @@ export class AdminPanelComponent implements OnInit {
     this.adminpanel.adddish(famous);
     alert("Data Saved");
   }
+
+  loadData(){
+    this.apiservice.getData().subscribe(famous =>{
+      this.famous=famous;
+
+    });
+  }
+  deleteFood(food: IProduct)
+{
+  let id : number = 0;
+
+  if(food.food_id == undefined){
+  }
+  else{
+    id=food.food_id;
+  }
+  this.adminpanel.deleteFood(id);
+  this.loadData;
+  console.log("Item deleted Successfully");
+}
+
 
   }
 

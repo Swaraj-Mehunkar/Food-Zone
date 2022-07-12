@@ -1,9 +1,19 @@
-// Get the modal
-var modal = document.getElementById('id01');
+`var app = angular.module('logapp',['toastr']);`
+app.factory('authentication', function() {
+ return {
+ isAuthenticated: false,
+ user: null
+}
+});
 
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-  }
+app.controller('credientials', function($scope,toastr,authentication) {
+$scope.loginform = function (username, password) {
+if ($scope.username === 'admin@evol.com' && $scope.password === '123') {
+ authentication.isAuthenticated = true;
+ $location.path("/home");
+} else {
+toastr.error('Invalid username and password');
+}
+};
+});
+angularjs

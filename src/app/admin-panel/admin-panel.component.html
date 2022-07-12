@@ -18,7 +18,7 @@
                     <td><img style="width: 110px;" src="{{dt.image_url}}"></td>
                     <td>{{dt.price | currency :'INR'}}</td>
                     <td>
-                        <button style="width: 80px;"  class="btn btn-danger delete-cart-item"><span class="fa fa-trash"></span>Delete</button>
+                        <button style="width: 80px;" (click)="deleteFood(dt)" class="btn btn-danger delete-cart-item"><span class="fa fa-trash"></span>Delete</button>
                         &nbsp;
                         &nbsp;
                         <button style="width: 70px;" class="btn btn-primary delete-cart-item" data-toggle="modal" data-target="#myModalEdit" >Edit</button>
@@ -88,7 +88,7 @@
         </div>
         <div class="modal-footer">
           <!-- <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Close</button> -->
-      <button type="button" class="btn btn-primary"(click)="save()" >Update</button> 
+      <button type="button" class="btn btn-primary">Update</button> 
       </div>
       </div>
     </div>

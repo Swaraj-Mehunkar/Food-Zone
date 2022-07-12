@@ -24,10 +24,10 @@ export class FamousDishesComponent implements OnInit {
       // for cart use------------------------
 
       this.result.forEach((a: any) => {
-        this.filterCategory = data;
-        if(a.category === "Veg" || a.category === "Non-Veg"){
-          a.category ="famousdishes"
-        }
+        // this.filterCategory = data;
+        // if(a.category === "Veg" || a.category === "Non-Veg"){
+        //   a.category ="famousdishes"
+        // }
         Object.assign(a, { quantity: 1, total: a.Price })
       });
       console.log(this.result);

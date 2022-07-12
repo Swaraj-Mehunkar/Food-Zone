@@ -39,6 +39,7 @@ export class VegComponent implements OnInit {
   }
     addtocart(dt:any){
       this.cartService.addtocart(dt);
+      alert("You Have Successfully Order");
     }
     
     filter(category:string){

@@ -1,5 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ICheckout } from '../icheckout';
 import { CartService } from '../services/cart.service';
@@ -18,46 +18,73 @@ export class CheckoutComponent implements OnInit {
 
   formValue !: FormGroup;
   checkoutData !: any;
-  checkout !:any;
+  checkout !:any; 
 
-   fullname:FormControl = new FormControl();
+  fullname:FormControl = new FormControl();
    email:FormControl = new FormControl();
    address:FormControl = new FormControl();
    city:FormControl = new FormControl();
    mobile:FormControl = new FormControl();
    state:FormControl = new FormControl();
    zip:FormControl = new FormControl();
-   
-  
+
   public grandTotal!:number;
   public totalItem: number=0;
-  public shopedmore:boolean=false;
   checkoutForm: FormGroup;
   submitted = false;
   checkoutInfoService: any;
 
   constructor(private cartService: CartService ,private formBuilder: FormBuilder,private router:Router,private service:CheckoutService) {
     this.checkoutForm=this.formBuilder.group({
-      fullname: ["",Validators.required],
-      email:["",Validators.required],
-      address:["",Validators.required],
-      city:["",Validators.required],
-      mobile:["",Validators.required],
-      state:["",Validators.required], 
-      zip:["",Validators.required],
+      fullname:new FormControl(["",Validators.required,  Validators.minLength(3), Validators.maxLength(10),
+      Validators.pattern("[a-zA-Z].*")]),
+      email: new FormControl(["",Validators.required, Validators.email]),
+      address: new FormControl(["",Validators.required,Validators.minLength(6), Validators.maxLength(30),
+      Validators.pattern("[a-zA-Z].*")]),
+      city:new FormControl(["",Validators.required,Validators.minLength(3), Validators.maxLength(10),
+      Validators.pattern("[a-zA-Z].*")]),
+      mobile:new FormControl(["",Validators.required, Validators.minLength(10), 
+      Validators.pattern("[0-9]*") , Validators.maxLength(10)]),
+      state:new FormControl(["",Validators.required, Validators.minLength(2), Validators.maxLength(10),
+      Validators.pattern("[a-zA-Z].*")]),
+      zip:new FormControl(["",Validators.required, Validators.minLength(6), 
+      Validators.pattern("[0-9]*"), Validators.maxLength(6)]),
       
-    })
-  
+    });
+    
   }
-  get f() { return this.checkoutForm.controls; }
 
+  save(){
+    
+    let checkout: ICheckout = {
+      fullname:this.fullname.value,
+      email:this.email.value,
+      address:this.address.value,
+      city:this.city.value,
+      mobile:this.mobile.value,
+      state:this.state.value,
+      zip:this.zip.value
+    };
+    
+  
+    if((checkout.fullname && checkout.email && checkout.address && checkout.city && checkout.mobile && checkout.state && checkout.zip)!=null && (checkout.fullname && checkout.email && checkout.address && checkout.city && checkout.mobile && checkout.state && checkout.zip)!=""&& checkout.mobile.length==10){
+      this.service.addchecks(checkout);
+      this.paynow();   
+      this.router.navigate(['/thankyou'])      
+      alert("Data Saved");
+    }
+    else{
+      alert("Kindly fill all the required details.");
+    }
+    
+  }
 
   ngOnInit(): void {
  
     this.cartService.getdish()
     .subscribe(res=>{
       this.famous = res;
-      this.grandTotal = this.cartService. getTotalPrice();
+      this.grandTotal = this.cartService.getTotalPrice();
     })
 
 this.cartService.getdish()
@@ -65,19 +92,6 @@ this.cartService.getdish()
   this.totalItem=res.length;
 })
   }
-
-  calculatePrice(){
-    this.grandTotal=this.cartService.getTotalPrice();
-     }
-    
-      public calcGrandTotal():number
-      {
-    let total:number = 0;
-    for(let famous of this.famous){
-      total +=(famous.quantity*famous.price);
-    }
-    return total;
-      }
     
       inc(famous:any){
         if(famous.quantity!=5){
@@ -91,21 +105,6 @@ this.cartService.getdish()
         }
       }
 
-      save(){
-        let checkout: ICheckout = {
-          fullname:this.fullname.value,
-          email:this.email.value,
-          address:this.address.value,
-          city:this.city.value,
-          mobile:this.mobile.value,
-          state:this.state.value,
-          zip:this.zip.value
-        };
-  
-        this.service.addchecks(checkout);
-        alert("Data Saved");
-      }
-  
       //razorpay payment integration
 
   message:any = "Not yet stared";
@@ -114,7 +113,7 @@ this.cartService.getdish()
   title = 'angular-razorpay-intergration';
   options = {
     "key": "rzp_test_26vH0d1Qbw9XKx",
-    "amount": "200",
+    "amount": this.grandTotal,
     "name": "Swaraj Mehunkar",
     "description": "Web Development",
     "image": "",
@@ -144,8 +143,8 @@ this.cartService.getdish()
 
   paynow() {
     this.paymentId = '';
-          this.error = '';
-            this.options.amount = "200"; //paise
+  this.error = '';
+      this.options.amount = this.grandTotal*100;//paise
             this.options.prefill.name = "Swaraj Mehunkar";
             this.options.prefill.email = "swaraj.mehunkar3388@gmail.com";
             this.options.prefill.contact = "9561320192";
